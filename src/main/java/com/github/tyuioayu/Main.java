@@ -40,19 +40,16 @@ public class Main {
         final JButton addButton = new JButton("Add");
         final JButton removeButton = new JButton("Remove");
         final JButton editButton = new JButton("Edit");
-        final JButton saveButton = new JButton("Save");
 
         // Add buttons to panel
         buttonPanel.add(addButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(editButton);
-        buttonPanel.add(saveButton);
 
         // Add action listeners to buttons
         addButton.addActionListener(e -> addTask());
         removeButton.addActionListener(e -> taskList.getSelectedTask().ifPresent(taskList::removeTask));
         editButton.addActionListener(e -> editTask());
-        saveButton.addActionListener(e -> saveTasks());
 
         // Add panels to main panel
         panel.add(inputPanel, BorderLayout.NORTH);
@@ -89,11 +86,6 @@ public class Main {
                 });
             }
         }
-    }
-
-    // Save tasks (only in memory)
-    private void saveTasks() {
-        JOptionPane.showMessageDialog(null, "Tasks saved!");
     }
 
     public static void main(String[] args) {
