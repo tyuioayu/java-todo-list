@@ -10,7 +10,6 @@ public class Main {
     private final JList<TaskItem> taskList;
     private final JTextField taskField;
     private final JTextField dateField;
-    private final List<TaskItem> data = new ArrayList<>(); // Array to store data
 
     public Main() {
         // Create main window
@@ -79,7 +78,6 @@ public class Main {
         if (!taskText.isEmpty() && !dueDateText.isEmpty()) {
             final TaskItem newTask = new TaskItem(taskText, dueDateText);
             listModel.addElement(newTask); // Add to list
-            data.add(newTask); // Add to array
             taskField.setText("");
             dateField.setText("");
         }
@@ -90,7 +88,6 @@ public class Main {
         int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex != -1) {
             listModel.remove(selectedIndex); // Remove from list
-            data.remove(selectedIndex); // Remove from array
         }
     }
 
