@@ -5,8 +5,6 @@ import java.awt.*;
 
 public class Main {
     private final TaskList taskList = new TaskList();
-    private JTextField taskField;
-    private JTextField dateField;
 
     public Main() {
         // Create main window
@@ -19,7 +17,6 @@ public class Main {
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         panel.setLayout(new BorderLayout(10, 10)); // Add margin
 
-        panel.add(this.createInputPanel(), BorderLayout.NORTH);
         panel.add(this.createTaskListPanel(), BorderLayout.CENTER);
         panel.add(this.createButtonPanel(), BorderLayout.SOUTH);
 
@@ -47,29 +44,13 @@ public class Main {
         buttonPanel.add(editButton);
 
         // Add action listeners to buttons
-        addButton.addActionListener(e -> addTask());
+        addButton.addActionListener(e -> {
+            new TaskModal((JFrame) SwingUtilities.getWindowAncestor(taskList), taskList::addTask);
+        });
         removeButton.addActionListener(e -> taskList.getSelectedTask().ifPresent(taskList::removeTask));
         editButton.addActionListener(e -> editTask());
 
         return buttonPanel;
-    }
-
-    /**
-     * Creates a {@link JPanel} with input fields for adding tasks.
-     *
-     * @return The created {@link JPanel}.
-     */
-    private JPanel createInputPanel() {
-        final JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // GridLayout with margin
-        inputPanel.add(new JLabel("Task:"));
-        taskField = new JTextField();
-        inputPanel.add(taskField);
-
-        inputPanel.add(new JLabel("Due Date (dd-mm-yyyy):"));
-        dateField = new JTextField();
-        inputPanel.add(dateField);
-
-        return inputPanel;
     }
 
     /**
@@ -82,16 +63,6 @@ public class Main {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         return scrollPane;
-    }
-
-    // Add a new task
-    private void addTask() {
-        final String taskText = taskField.getText().trim();
-        final String dueDateText = dateField.getText().trim();
-        if (!taskText.isEmpty() && !dueDateText.isEmpty()) {
-            taskList.addTask(new TaskItem(taskText, dueDateText));
-            taskField.setText("");
-        }
     }
 
     // Edit a task
