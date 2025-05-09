@@ -17,12 +17,16 @@
     </properties>
 
     <dependencies>
-        <!-- Compile Dependencies -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.38</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.lgooddatepicker</groupId>
+            <artifactId>LGoodDatePicker</artifactId>
+            <version>11.2.1</version>
         </dependency>
     </dependencies>
 
