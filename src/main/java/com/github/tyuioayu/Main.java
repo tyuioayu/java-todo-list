@@ -79,7 +79,6 @@ public class Main {
             final TaskItem newTask = new TaskItem(taskText, dueDateText);
             listModel.addElement(newTask); // Add to list
             taskField.setText("");
-            dateField.setText("");
         }
     }
 
