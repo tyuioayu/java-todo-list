@@ -68,6 +68,7 @@ public class Main {
         frame.add(panel);
         frame.setVisible(true);
         frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     // Add a new task
