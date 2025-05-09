@@ -9,7 +9,7 @@ public class TaskItem {
     @Setter private String dueDate;
     private boolean isCompleted;
 
-    public TaskItem(String task, String dueDate) {
+    public TaskItem(final String task, final String dueDate) {
         this.task = task;
         this.dueDate = dueDate;
         this.isCompleted = false;
