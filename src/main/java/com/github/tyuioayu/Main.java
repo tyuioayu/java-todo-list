@@ -2,12 +2,12 @@ package com.github.tyuioayu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class Main {
-    private final DefaultListModel<TaskItem> listModel;
-    private final JList<TaskItem> taskList;
+    private final TaskList taskList = new TaskList();
     private final JTextField taskField;
     private final JTextField dateField;
 
@@ -23,9 +23,6 @@ public class Main {
         panel.setLayout(new BorderLayout(10, 10)); // Add margin
 
         // Task list
-        listModel = new DefaultListModel<>();
-        taskList = new JList<>(listModel);
-        taskList.setCellRenderer(new CustomListRenderer());
         panel.add(new JScrollPane(taskList), BorderLayout.CENTER);
 
         // Input panel (for entering task and due date)
@@ -44,21 +41,18 @@ public class Main {
         final JButton removeButton = new JButton("Remove");
         final JButton editButton = new JButton("Edit");
         final JButton saveButton = new JButton("Save");
-        final JButton toggleButton = new JButton("Completed");
 
         // Add buttons to panel
         buttonPanel.add(addButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(editButton);
         buttonPanel.add(saveButton);
-        buttonPanel.add(toggleButton);
 
         // Add action listeners to buttons
         addButton.addActionListener(e -> addTask());
-        removeButton.addActionListener(e -> removeTask());
+        removeButton.addActionListener(e -> taskList.getSelectedTask().ifPresent(taskList::removeTask));
         editButton.addActionListener(e -> editTask());
         saveButton.addActionListener(e -> saveTasks());
-        toggleButton.addActionListener(e -> toggleTaskStatus());
 
         // Add panels to main panel
         panel.add(inputPanel, BorderLayout.NORTH);
@@ -76,17 +70,8 @@ public class Main {
         final String taskText = taskField.getText().trim();
         final String dueDateText = dateField.getText().trim();
         if (!taskText.isEmpty() && !dueDateText.isEmpty()) {
-            final TaskItem newTask = new TaskItem(taskText, dueDateText);
-            listModel.addElement(newTask); // Add to list
+            taskList.addTask(new TaskItem(taskText, dueDateText));
             taskField.setText("");
-        }
-    }
-
-    // Remove a task
-    private void removeTask() {
-        int selectedIndex = taskList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            listModel.remove(selectedIndex); // Remove from list
         }
     }
 
@@ -97,21 +82,12 @@ public class Main {
             final String newTaskText = JOptionPane.showInputDialog("Enter new task:");
             final String newDueDateText = JOptionPane.showInputDialog("Enter new due date (yyyy-mm-dd):");
             if (newTaskText != null && newDueDateText != null) {
-                final TaskItem item = listModel.getElementAt(selectedIndex);
-                item.setTask(newTaskText);
-                item.setDueDate(newDueDateText);
-                taskList.repaint(); // Refresh list
+                taskList.getSelectedTask().ifPresent(task -> {
+                    task.setTask(newTaskText);
+                    task.setDueDate(newDueDateText);
+                    taskList.repaint();
+                });
             }
-        }
-    }
-
-    // Mark task as completed
-    private void toggleTaskStatus() {
-        final int selectedIndex = taskList.getSelectedIndex();
-        if (selectedIndex != -1) {
-            final TaskItem item = listModel.getElementAt(selectedIndex);
-            item.toggleCompleted();
-            taskList.repaint(); // Refresh list
         }
     }
 
