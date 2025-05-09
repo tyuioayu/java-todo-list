@@ -20,6 +20,7 @@ public class Main {
 
         // Main panel
         final JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         panel.setLayout(new BorderLayout(10, 10)); // Add margin
 
         // Task list
