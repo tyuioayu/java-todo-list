@@ -2,14 +2,11 @@ package com.github.tyuioayu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 public class Main {
     private final TaskList taskList = new TaskList();
-    private final JTextField taskField;
-    private final JTextField dateField;
+    private JTextField taskField;
+    private JTextField dateField;
 
     public Main() {
         // Create main window
@@ -22,21 +19,24 @@ public class Main {
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         panel.setLayout(new BorderLayout(10, 10)); // Add margin
 
-        // Task list
-        panel.add(new JScrollPane(taskList), BorderLayout.CENTER);
+        panel.add(this.createInputPanel(), BorderLayout.NORTH);
+        panel.add(this.createTaskListPanel(), BorderLayout.CENTER);
+        panel.add(this.createButtonPanel(), BorderLayout.SOUTH);
 
-        // Input panel (for entering task and due date)
-        final JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // GridLayout with margin
-        inputPanel.add(new JLabel("Task:"));
-        taskField = new JTextField();
-        inputPanel.add(taskField);
+        // Add panel to frame
+        frame.add(panel);
+        frame.setVisible(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+    }
 
-        inputPanel.add(new JLabel("Due Date (dd-mm-yyyy):"));
-        dateField = new JTextField();
-        inputPanel.add(dateField);
-
-        // Buttons panel
-        final JPanel buttonPanel = new JPanel(new GridLayout(1, 5, 10, 10)); // 5 buttons
+    /**
+     * Creates a {@link JPanel} with components for managing the {@link #taskList}.
+     *
+     * @return The created {@link JPanel}.
+     */
+    private JPanel createButtonPanel() {
+        final JPanel buttonPanel = new JPanel(new GridLayout(1, 3, 10, 10)); // 3 buttons
         final JButton addButton = new JButton("Add");
         final JButton removeButton = new JButton("Remove");
         final JButton editButton = new JButton("Edit");
@@ -51,15 +51,37 @@ public class Main {
         removeButton.addActionListener(e -> taskList.getSelectedTask().ifPresent(taskList::removeTask));
         editButton.addActionListener(e -> editTask());
 
-        // Add panels to main panel
-        panel.add(inputPanel, BorderLayout.NORTH);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        return buttonPanel;
+    }
 
-        // Add panel to frame
-        frame.add(panel);
-        frame.setVisible(true);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
+    /**
+     * Creates a {@link JPanel} with input fields for adding tasks.
+     *
+     * @return The created {@link JPanel}.
+     */
+    private JPanel createInputPanel() {
+        final JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // GridLayout with margin
+        inputPanel.add(new JLabel("Task:"));
+        taskField = new JTextField();
+        inputPanel.add(taskField);
+
+        inputPanel.add(new JLabel("Due Date (dd-mm-yyyy):"));
+        dateField = new JTextField();
+        inputPanel.add(dateField);
+
+        return inputPanel;
+    }
+
+    /**
+     * Creates a {@link JScrollPane} containing the {@link #taskList}.
+     *
+     * @return The created {@link JScrollPane}.
+     */
+    private JScrollPane createTaskListPanel() {
+        final JScrollPane scrollPane = new JScrollPane(taskList);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        return scrollPane;
     }
 
     // Add a new task
