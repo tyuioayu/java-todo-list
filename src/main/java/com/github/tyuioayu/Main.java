@@ -67,6 +67,7 @@ public class Main {
         // Add panel to frame
         frame.add(panel);
         frame.setVisible(true);
+        frame.pack();
     }
 
     // Add a new task
