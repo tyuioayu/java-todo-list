@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private DefaultListModel<TaskItem> listModel;
-    private JList<TaskItem> taskList;
-    private JTextField taskField;
-    private JTextField dateField;
-    private List<TaskItem> data = new ArrayList<>(); // Array to store data
+    private final DefaultListModel<TaskItem> listModel;
+    private final JList<TaskItem> taskList;
+    private final JTextField taskField;
+    private final JTextField dateField;
+    private final List<TaskItem> data = new ArrayList<>(); // Array to store data
 
     public Main() {
         // Create main window
-        JFrame frame = new JFrame("To-Do List");
+        final JFrame frame = new JFrame("To-Do List");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500); // Increase window size
 
         // Main panel
-        JPanel panel = new JPanel();
+        final JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout(10, 10)); // Add margin
 
         // Task list
@@ -29,7 +29,7 @@ public class Main {
         panel.add(new JScrollPane(taskList), BorderLayout.CENTER);
 
         // Input panel (for entering task and due date)
-        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // GridLayout with margin
+        final JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10)); // GridLayout with margin
         inputPanel.add(new JLabel("Task:"));
         taskField = new JTextField();
         inputPanel.add(taskField);
@@ -39,12 +39,12 @@ public class Main {
         inputPanel.add(dateField);
 
         // Buttons panel
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 5, 10, 10)); // 5 buttons
-        JButton addButton = new JButton("Add");
-        JButton removeButton = new JButton("Remove");
-        JButton editButton = new JButton("Edit");
-        JButton saveButton = new JButton("Save");
-        JButton toggleButton = new JButton("Completed");
+        final JPanel buttonPanel = new JPanel(new GridLayout(1, 5, 10, 10)); // 5 buttons
+        final JButton addButton = new JButton("Add");
+        final JButton removeButton = new JButton("Remove");
+        final JButton editButton = new JButton("Edit");
+        final JButton saveButton = new JButton("Save");
+        final JButton toggleButton = new JButton("Completed");
 
         // Add buttons to panel
         buttonPanel.add(addButton);
@@ -71,10 +71,10 @@ public class Main {
 
     // Add a new task
     private void addTask() {
-        String taskText = taskField.getText().trim();
-        String dueDateText = dateField.getText().trim();
+        final String taskText = taskField.getText().trim();
+        final String dueDateText = dateField.getText().trim();
         if (!taskText.isEmpty() && !dueDateText.isEmpty()) {
-            TaskItem newTask = new TaskItem(taskText, dueDateText);
+            final TaskItem newTask = new TaskItem(taskText, dueDateText);
             listModel.addElement(newTask); // Add to list
             data.add(newTask); // Add to array
             taskField.setText("");
@@ -93,12 +93,12 @@ public class Main {
 
     // Edit a task
     private void editTask() {
-        int selectedIndex = taskList.getSelectedIndex();
+        final int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex != -1) {
-            String newTaskText = JOptionPane.showInputDialog("Enter new task:");
-            String newDueDateText = JOptionPane.showInputDialog("Enter new due date (yyyy-mm-dd):");
+            final String newTaskText = JOptionPane.showInputDialog("Enter new task:");
+            final String newDueDateText = JOptionPane.showInputDialog("Enter new due date (yyyy-mm-dd):");
             if (newTaskText != null && newDueDateText != null) {
-                TaskItem item = listModel.getElementAt(selectedIndex);
+                final TaskItem item = listModel.getElementAt(selectedIndex);
                 item.setTask(newTaskText);
                 item.setDueDate(newDueDateText);
                 taskList.repaint(); // Refresh list
@@ -108,9 +108,9 @@ public class Main {
 
     // Mark task as completed
     private void toggleTaskStatus() {
-        int selectedIndex = taskList.getSelectedIndex();
+        final int selectedIndex = taskList.getSelectedIndex();
         if (selectedIndex != -1) {
-            TaskItem item = listModel.getElementAt(selectedIndex);
+            final TaskItem item = listModel.getElementAt(selectedIndex);
             item.toggleCompleted();
             taskList.repaint(); // Refresh list
         }
